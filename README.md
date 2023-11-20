@@ -1,17 +1,17 @@
 # AttendanceManage
 ### branch
 
-海段-kaidan
+海段 - kaidan
 
-実国-jitsukuni
+実国 - jitsukuni
 
 中島-
 
-内-uchi
+内 - uchi
 
-木脇-kiwaki
+木脇 - kiwaki
 
-地頭薗-chitozono
+地頭薗 - chitozono
 
 ### 担当範囲
 
