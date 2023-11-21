@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/index.css}" rel="stylesheet" type="text/css">
+
+    <title>連絡先登録</title>
+</head>
+<body style="background-color: rgb(225, 225, 225);">
+    <div>
+        <ul class="side">
+            <li>
+                <form method="post" action="">
+                    <a href="/inputScreen">勤怠入力</a>
+                </form>
+            </li>
+            <li>
+                <form method="get" action="">
+                    <a href="/workplace">勤務場所登録</a>
+                </form>
+            </li>
+            <li>
+                <form method="get" action="">
+                    <a href="/contact">連絡先登録</a>
+                </form>
+            </li>
+            <li>
+                <form method="get" action="">
+                    <a href="/record">勤怠状況一覧</a>
+                </form>
+            </li>
+            <li>
+                <form method="get" action="">
+                    <a href="/attendanceList">勤務状況一覧</a>
+                </form>
+            </li>
+            <li>
+                <form method="get" action="">
+                    <a href="/login">ログアウト</a>
+                </form>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="center2">
+
+        <br><br><br><br>
+
+        <h3>連絡先登録</h3>
+
+        <label class="left">電話番号</label>
+        <input type="text" name="tell">
+    
+        <br>
+
+        <label class="left">メールアドレス</label>
+        <input type="email" name="email">
+
+        <br>
+
+        <label class="left">備考</label>
+        <textarea>備考を入力してください。</textarea>
+
+        <br>
+
+        <input type="submit" value="登録" class="button">
+
+    </div>
+    
+</body>
+</html>
