@@ -24,9 +24,13 @@ public class attendancesController {
         return "";
     }
 
-    @GetMapping("/")
+    @GetMapping("/condition")
     public String condition(Model model){
-        return "";
+//       データベース接続テスト
+        String sql = "SELECT * FROM attendances";
+        System.out.println(jdbcTemplate.queryForList(sql));
+
+        return "/condition";
     }
     @GetMapping("/")
     public String login(Model model){
