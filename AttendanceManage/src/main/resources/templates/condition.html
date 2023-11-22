@@ -56,15 +56,27 @@
 
         <table align="center" width="1000">
             <tr>
-                <th>名前</th>
-                <th>出勤</th>
-                <th>退勤</th>
+                <th>user_id</th>
+                <th>login_id</th>
+                <th>user_name</th>
+                <th>password</th>
+                <th>tel</th>
+                <th>mail</th>
+                <th>remarks</th>
+                <th>department_id</th>
+                <th>admin_id</th>
             </tr>
 <!--    データベース接続テスト        -->
             <tr th:each="attendances : ${condition}">
                 <td th:text="${attendances.user_id}"></td>
-                <td th:text="${attendance.user_name}"></td>
-                <td th:text="${attendance.password}"></td>
+                <td th:text="${attendances.login_id}"></td>
+                <td th:text="${attendances.user_name}"></td>
+                <td th:text="${attendances.password}"></td>
+                <td th:text="${attendances.tel}"></td>
+                <td th:text="${attendances.mail}"></td>
+                <td th:text="${attendances.remarks}"></td>
+                <td th:text="${attendances.department_id}"></td>
+                <td th:text="${attendances.admin_id}"></td>
             </tr>
         </table>
     </div>

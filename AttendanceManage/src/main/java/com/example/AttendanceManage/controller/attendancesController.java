@@ -19,7 +19,7 @@ import java.util.Map;
 public class attendancesController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    @GetMapping("/")
+    @GetMapping("/address")
     public String address(Model model){
         return "";
     }
@@ -29,18 +29,20 @@ public class attendancesController {
 //       データベース接続テスト
         String sql = "SELECT * FROM attendances";
         System.out.println(jdbcTemplate.queryForList(sql));
-
-        return "/condition";
+//      一覧表示
+        List<Map<String, Object>> attendanceData = jdbcTemplate.queryForList(sql);
+        model.addAttribute("condition", attendanceData);
+        return "condition";
     }
-    @GetMapping("/")
+    @GetMapping("/login")
     public String login(Model model){
         return "";
     }
-    @GetMapping("/")
+    @GetMapping("/place")
     public String place(Model model){
         return "";
     }
-    @GetMapping("/")
+    @GetMapping("/work")
     public String work(Model model) {
         return "";
     }
