@@ -26,7 +26,7 @@ public class attendancesController {
 
     @GetMapping("/condition")
     public String condition(Model model){
-//       データベース接続テスト
+//       データベース接続テストtest
         String sql = "SELECT * FROM attendances";
         System.out.println(jdbcTemplate.queryForList(sql));
 //      一覧表示
