@@ -56,27 +56,23 @@
 
         <table align="center" width="1000">
             <tr>
-                <th>user_id</th>
-                <th>login_id</th>
-                <th>user_name</th>
-                <th>password</th>
-                <th>tel</th>
-                <th>mail</th>
-                <th>remarks</th>
-                <th>department_id</th>
-                <th>admin_id</th>
+                <th>氏名</th>
+                <th>勤務開始時間</th>
+                <th>勤務終了時間</th>
+                <th>ステータス</th>
+                <th>勤務場所</th>
+                <th>電話番号</th>
+                <th>メール</th>
             </tr>
-<!--    データベース接続テスト        -->
-            <tr th:each="attendances : ${condition}">
-                <td th:text="${attendances.user_id}"></td>
-                <td th:text="${attendances.login_id}"></td>
-                <td th:text="${attendances.user_name}"></td>
-                <td th:text="${attendances.password}"></td>
-                <td th:text="${attendances.tel}"></td>
-                <td th:text="${attendances.mail}"></td>
-                <td th:text="${attendances.remarks}"></td>
-                <td th:text="${attendances.department_id}"></td>
-                <td th:text="${attendances.admin_id}"></td>
+            <!--    データベース接続テスト        -->
+            <tr th:each="attendance : ${condition}">
+                <td th:text="${attendance.user_name}"></td>
+                <td th:text="${attendance.start_work}"></td>
+                <td th:text="${attendance.end_work}"></td>
+                <td th:text="${attendance.work_condition}"></td>
+                <td th:text="${attendance.work_place}"></td>
+                <td th:text="${attendance.tel}"></td>
+                <td th:text="${attendance.mail}"></td>
             </tr>
         </table>
     </div>
