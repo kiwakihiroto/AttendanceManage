@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
-    private int id;
+    private int login_id;
+    private String user_name;
     private String password;
-    private String name;
-    private String role;
-    private int division_id;
+    private String department_id;
+    private int admin_id;
 }
