@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.dao.DataAccessException;
+import org.springframework.core.NestedRuntimeException;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -26,7 +28,7 @@ public class attendancesController {
 
     @GetMapping("/condition")
     public String condition(Model model){
-//       データベース接続テストtest
+//       データベース接続テスト
         String sql = "SELECT * FROM attendances";
         System.out.println(jdbcTemplate.queryForList(sql));
 //      一覧表示
