@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -20,11 +19,15 @@ import java.util.Map;
 public class loginController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @PostMapping("/login")
+    public String login(HttpServletRequest request, Model model) throws ServletException, IOException{
+        String loginId = request.getParameter("login_id");
+        String pass = request.getParameter("password");
 
-    @RequestMapping("/login")
-    public String login(Model model){
-        
-        return "";
+        System.out.println(loginId);
+        System.out.println(pass);
+
+        return "login";
     }
 
 }

@@ -13,18 +13,16 @@
     <div>
         <p>Login</p>
 
-        <p class="text">ログインID</p>
-        <input type="text" name="loginId">
-    
-        <br>
-
-        <p class="text">Password</p>
-        <input type="password" name="password">
-    
-        <br><br>
-        <form method="get" action="">
-            <input type="submit" onclick="location.href='/work'" value="Login">
+        <form th:action="@{/login}" method="post">
+            <p class="text">ログインID</p>
+            <input type="text" name="login_id">
+            <br>
+            <p class="text">Password</p>
+            <input type="password" name="password">
+            <br><br>
+            <input type="submit" value="Login">
         </form>
+
     </div>
 </body>
 </html>
