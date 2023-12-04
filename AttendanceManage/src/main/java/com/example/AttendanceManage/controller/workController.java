@@ -19,9 +19,33 @@ import java.util.Map;
 public class workController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
     @GetMapping("/work")
     public String work(Model model) {
-        return "";
+        //DB内容取得(仮) login完成次第変更
+        String sql = "select a.user_name, w.start_work, w.end_work, c.work_condition, p.work_place, a.tel, a.mail \n" +
+                "from attendances as a \n" +
+                "inner join work as w on a.login_id = w.login_id \n" +
+                "inner join condition as c on w.work_condition_id = c.work_condition_id \n" +
+                "inner join place as p on w.work_place_id = p.work_place_id";
+        System.out.println(jdbcTemplate.queryForList(sql));
+        //      一覧表示
+        List<Map<String, Object>> attendanceData = jdbcTemplate.queryForList(sql);
+        model.addAttribute("work", attendanceData);
+        return "work";
     }
 
+    @PostMapping("/work")
+    public String inputScreenSubmit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 出勤ボタンを押したときに現在の時間を取得
+        Date nowDate = new Date();
+        SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm:ss");
+        String formatNowDate = sdf1.format(nowDate);
+        System.out.println(formatNowDate);
+
+        //  出勤時間をDBに追加
+        String sql = "insert into attendance (begin_time) values ('" + formatNowDate + "')";
+        jdbcTemplate.update(sql);
+        return "work";
+    }
 }
