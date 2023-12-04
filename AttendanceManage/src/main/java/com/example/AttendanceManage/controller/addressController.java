@@ -19,10 +19,9 @@ import java.util.Map;
 public class addressController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
     @GetMapping("/address")
-    public String address(Model model){
+    public String address(Model model) {
         return "";
     }
-
-
 }
