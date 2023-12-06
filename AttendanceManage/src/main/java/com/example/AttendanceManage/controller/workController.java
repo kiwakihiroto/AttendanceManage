@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
@@ -15,11 +16,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+@RequestMapping("")
 @Controller
 public class workController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
+    @RequestMapping("")
+    public String index() {
+        System.out.println("aaa");
+        return "work";
+    }
     @GetMapping("/work")
     public String work(Model model) {
         //DB内容取得(仮) login完成次第変更
@@ -44,8 +50,8 @@ public class workController {
         System.out.println(formatNowDate);
 
         //  出勤時間をDBに追加
-        String sql = "insert into attendance (begin_time) values ('" + formatNowDate + "')";
-        jdbcTemplate.update(sql);
+        String sql2 = "insert into attendances (begin_time) values ('" + formatNowDate + "')";
+        jdbcTemplate.update(sql2);
         return "work";
     }
 }
