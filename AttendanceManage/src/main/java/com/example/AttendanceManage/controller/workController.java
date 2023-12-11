@@ -40,7 +40,7 @@ public class workController {
     }
 
     @PostMapping("/work")
-    public String inputScreenSubmit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String inputScreen_work_start(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 出勤ボタンを押したときに現在の時間を取得
         Date nowDate = new Date();
         SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm:ss");
@@ -53,8 +53,26 @@ public class workController {
         Integer i = login_id;
         Date date = new Date();
         //  出勤時間をDBに追加
-        String sql = "insert into work (login_id,date,start_work) values ('" + login_id +   i   + formatNowDate + "')";
+        String sql = "insert into work (login_id,date,start_work) values ('" + i +   date   + formatNowDate + "')";
         jdbcTemplate.update(sql);
-        return "work";
+        return "place";
     }
+//    @PostMapping("/work")
+//    public String inputScreen_work_end(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        // 退勤ボタンを押したときに現在の時間を取得
+//        Date nowDate = new Date();
+//        SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm:ss");
+//        String formatNowDate = sdf1.format(nowDate);
+//        System.out.println(formatNowDate);
+//        System.out.println("test");
+//        System.out.println(this.session.getAttribute("login_id"));
+//
+//        int login_id = (int) this.session.getAttribute("login_id");
+//        Integer i = login_id;
+//        Date date = new Date();
+//        //  退勤時間をDBに追加
+//        String sql = "insert into work (login_id,date,end_work) values ('" + login_id +   i   + formatNowDate + "')";
+//        jdbcTemplate.update(sql);
+//        return "place";
+//    }
 }
