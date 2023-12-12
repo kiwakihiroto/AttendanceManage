@@ -54,10 +54,11 @@ public class workController {
         System.out.println("test");
         System.out.println(this.session.getAttribute("login_id"));
         //sessionをintにキャスト
-        int login_id = (int) this.session.getAttribute("login_id");
+        //int login_id = (int) this.session.getAttribute("login_id");
 
         //  出勤時間をDBに追加
-        String sql = "insert into work (login_id,date,start_work) values (" + login_id +" ,'" + formatNowDate2 +"','"+ formatNowDate + "')";
+        //String sql = "insert into work (login_id,date,start_work) values (" + login_id +" ,'" + formatNowDate2 +"','"+ formatNowDate + "')";
+        String sql = "insert into work (login_id,date,start_work) values("+session.getAttribute("login_id")+",'"+formatNowDate2+"','"+formatNowDate+"')";
         jdbcTemplate.update(sql);
         return "place";
     }

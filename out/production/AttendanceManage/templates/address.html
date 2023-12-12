@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/css/index.css}" rel="stylesheet" type="text/css">
 
-    <title>勤務場所登録</title>
+    <title>連絡先登録</title>
 </head>
 <body style="background-color: rgb(225, 225, 225);">
     <div>
@@ -48,20 +48,24 @@
 
         <br><br><br><br>
 
-        <form method="post" th:action="@{/place}">
-        <h3>勤務場所登録</h3>
+        <h3>連絡先登録</h3>
 
-        <p>本日の勤務場所を登録してください。</p>
+        <label class="left">電話番号</label>
+        <input type="text" name="tell">
+    
+        <br>
 
-        <select name="place">
-            <option value="0">-</option>
-            <option value="1">自宅</option>
-            <option value="2">東京</option>
-            <option value="3">営業所</option>
-        </select>
+        <label class="left">メールアドレス</label>
+        <input type="email" name="email">
+
+        <br>
+
+        <label class="left">備考</label>
+        <textarea>備考を入力してください。</textarea>
+
+        <br>
 
         <input type="submit" value="登録" class="button">
-        </form>
 
     </div>
     
