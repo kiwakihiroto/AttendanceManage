@@ -46,14 +46,18 @@ public class workController {
         SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm:ss");
         String formatNowDate = sdf1.format(nowDate);
         System.out.println(formatNowDate);
+        //日付取得
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd");
+        String formatNowDate2 = sdf2.format(nowDate);
+        System.out.println(formatNowDate);
+
         System.out.println("test");
         System.out.println(this.session.getAttribute("login_id"));
-
+        //sessionをintにキャスト
         int login_id = (int) this.session.getAttribute("login_id");
-        Integer i = login_id;
-        Date date = new Date();
+
         //  出勤時間をDBに追加
-        String sql = "insert into work (login_id,date,start_work) values ('" + i +   date   + formatNowDate + "')";
+        String sql = "insert into work (login_id,date,start_work) values (" + login_id +" ,'" + formatNowDate2 +"','"+ formatNowDate + "')";
         jdbcTemplate.update(sql);
         return "place";
     }
@@ -71,7 +75,7 @@ public class workController {
 //        Integer i = login_id;
 //        Date date = new Date();
 //        //  退勤時間をDBに追加
-//        String sql = "insert into work (login_id,date,end_work) values ('" + login_id +   i   + formatNowDate + "')";
+//        String sql = "update work set end_work = ? WHERE login_id = ?;
 //        jdbcTemplate.update(sql);
 //        return "place";
 //    }
