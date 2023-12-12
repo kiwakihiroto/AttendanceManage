@@ -59,15 +59,19 @@
 
         <br>
 
-        <form>
+        <form th:action="@{/work}" method="post">
             <input type="submit" class="button" value="退勤">
         </form>
 
         <br><br>
 
+        <form th:action="@{/work}" method="post">
         <input type="submit" value="休憩開始" class="button">
+        </form>
 
+            <form th:action="@{/work}" method="post">
         <input type="submit" value="休憩終了" class="button">
+            </form>
     </div>
     
     
