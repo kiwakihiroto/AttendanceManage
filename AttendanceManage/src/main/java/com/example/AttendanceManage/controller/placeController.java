@@ -50,8 +50,7 @@ public class placeController {
 
         String sqlUpdateWork = "update work set work_place_id = "+placeInput+" where login_id = '"+session.getAttribute("login_id")+"' and date = '"+nowDate+"' and end_work is null";
         jdbcTemplate.update(sqlUpdateWork);
-        System.out.println("勤務場所登録完了");
-
+        System.out.println();
         return "place";
     }
 
