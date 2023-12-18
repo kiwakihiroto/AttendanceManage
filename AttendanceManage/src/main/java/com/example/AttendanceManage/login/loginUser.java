@@ -24,17 +24,9 @@ public class loginUser {
             String sql = "select * from attendances where login_id = ? and password = ?";
             List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, id, pw);
 
+            //リファクタリングをしたため変更
             for (Map<String, Object> row : rows) {
-                User resultUserInfo = new User();
-                resultUserInfo.setUser_id((Integer) row.get("user_id"));
-                resultUserInfo.setLogin_id((Integer) row.get("login_id"));
-                resultUserInfo.setUser_name((String) row.get("user_name"));
-                resultUserInfo.setPassword((String) row.get("password"));
-                resultUserInfo.setTel((String) row.get("tel"));
-                resultUserInfo.setMail((String) row.get("mail"));
-                resultUserInfo.setRemarks((String) row.get("remarks"));
-                resultUserInfo.setDepartment_id((String) row.get("department_id"));
-                resultUserInfo.setAdmin_id((String) row.get("admin_id"));
+                User resultUserInfo = User.mapToUser(row);
                 array_userinfo.add(resultUserInfo);
             }
 
