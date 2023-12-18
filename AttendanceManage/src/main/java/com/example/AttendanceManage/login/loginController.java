@@ -63,6 +63,7 @@ public class loginController {
             System.out.println(user_list);
 
             if(user_list == null || user_list.size() != 1){
+                model.addAttribute("error", "ログインに失敗しました。");
                 System.out.println("ログイン失敗");
                 return "login";
             }else{

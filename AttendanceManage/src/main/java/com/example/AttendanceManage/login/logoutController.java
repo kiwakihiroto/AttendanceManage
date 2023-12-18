@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class logoutController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        // セッションから特定の属性を削除
+        // セッションからログインIDを削除
         session.removeAttribute("login_id");
 
         return "redirect:/login";

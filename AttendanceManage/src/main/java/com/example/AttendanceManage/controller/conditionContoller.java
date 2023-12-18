@@ -21,10 +21,8 @@ public class conditionContoller {
     @GetMapping("/condition")
     public String condition(Model model){
 
-//        int login_id = (int) this.session.getAttribute("login_id");
+        String login_id = (String) this.session.getAttribute("login_id");
         System.out.println(this.session.getAttribute("login_id"));
-
-        int login_id = 1114;
 
         // ユーザが所属する部署内の氏名、勤務開始時間、勤務終了時間、ステータス、勤務場所。電話番号、メールの表示。
         String sql = "select a.user_name, w.start_work, w.end_work, c.work_condition, p.work_place, a.tel, a.mail \n" +
