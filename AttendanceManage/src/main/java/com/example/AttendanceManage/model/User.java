@@ -1,5 +1,8 @@
 package com.example.AttendanceManage.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,8 +10,11 @@ import java.util.Map;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "attendances")
 public class User {
     // データベースのカラム名に合わせる
+    @Id
     private int user_id;
     private int login_id;
     private String user_name;

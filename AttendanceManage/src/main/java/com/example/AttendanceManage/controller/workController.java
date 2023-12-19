@@ -63,7 +63,8 @@ public class workController {
         }else if("退勤".equals(status)){
             String sql2 = "select end_work from work where login_id = '"+login_id+"'  and date = '"+formatNowDate2+"' " ;
             List<Map<String, Object>> check = jdbcTemplate.queryForList(sql2);
-            if(check == null){
+
+            if(check.get(0) == null){
                 System.out.println("null");
                 String sql = "update work set end_work = '"+formatNowDate+"' where login_id = '"+login_id+"' and date = '"+formatNowDate2+"' ";
                 jdbcTemplate.update(sql);

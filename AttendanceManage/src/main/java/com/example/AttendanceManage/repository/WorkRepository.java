@@ -15,11 +15,12 @@ import java.util.Date;
 @Repository
 @Transactional
 public interface WorkRepository extends JpaRepository<Work, WorkKey> {
-    @Query(value = "SELECT count(*) FROM work WHERE work.login_id = :login_id AND work.date = :date",nativeQuery = true)
-    int countWorkByLoginIdAndDate(@Param("login_id") Integer login_id, @Param("date") Date date);
-/*
+    @Query(value = "SELECT count(*) FROM work WHERE work.login_id = :loginId AND work.date IN(:date,:nowDayAgo) AND end_work is null",nativeQuery = true)
+    int countByLoginIdAndDate(@Param("loginId") Integer loginId, @Param("date") Date date,@Param("nowDayAgo") Date nowDayAgo);
+
+    //work_place_idの更新
     @Modifying
-    @Query(value = "update work set work.work_place_id = :work_place_id where work.login_id = :login_id and work.date = :date and work.end_work is null")
-    void update(@Param("work_place_id") String work_place_id,@Param("login_id") Integer login_id,@Param("date") Date date);
- */
+    @Query(value = "update work set work_place_id = :workPlaceId where login_id = :loginId and date IN(:date,:nowDayAgo) and end_work is null",nativeQuery = true)
+    void updateSetWorkPlaceId(@Param("workPlaceId") String workPlaceId,@Param("loginId") Integer loginId,@Param("date") Date date,@Param("nowDayAgo") Date nowDayAgo);
+
 }
