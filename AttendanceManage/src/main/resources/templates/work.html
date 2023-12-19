@@ -52,24 +52,14 @@
         <div id="DateTimeDisp"></div>
 
         <form th:action="@{/work}" method="post">
-            <input type="submit" name="button1" class="button" value="出勤" onclick="alert('出勤しますか？')">
+            <p th:if="${error}" style="color:red" th:text="${error}"></p>
+            <input type="submit" name="status" class="button" value="出勤" onclick="alert('出勤しますか？')">
+            <input type="submit" name="status" class="button" value="退勤">
+            <input type="submit" name="status" value="休憩開始" class="button">
+            <input type="submit" name="status" value="休憩終了" class="button">
         </form>
 
         <br>
-
-        <form th:action="@{/work}" method="post">
-            <input type="submit" name="button2" class="button" value="退勤">
-        </form>
-
-        <br><br>
-
-        <form th:action="@{/work}" method="post">
-        <input type="submit" name="button3" value="休憩開始" class="button">
-        </form>
-
-            <form th:action="@{/work}" method="post">
-        <input type="submit"  name="button4" value="休憩終了" class="button">
-            </form>
     </div>
     
     
