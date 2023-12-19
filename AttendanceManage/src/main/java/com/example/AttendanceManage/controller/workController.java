@@ -1,4 +1,5 @@
 package com.example.AttendanceManage.controller;
+import com.example.AttendanceManage.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -39,8 +41,8 @@ public class workController {
     }
 
     @PostMapping("/work")
-    public String inputScreen_work_start(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 出勤ボタンを押したときに現在の時間を取得
+    public String inputScreen_work_start(@RequestParam("status")String status, Model model){
+        //現在の時間を取得
         Date nowDate = new Date();
         SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm:ss");
         String formatNowDate = sdf1.format(nowDate);
@@ -49,16 +51,37 @@ public class workController {
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd");
         String formatNowDate2 = sdf2.format(nowDate);
         System.out.println(formatNowDate);
+        //sessionをString型に
+        String login_id = (String) this.session.getAttribute("login_id");
 
-        System.out.println("test");
-        System.out.println(this.session.getAttribute("login_id"));
-        //sessionをintにキャスト
-        //int login_id = (int) this.session.getAttribute("login_id");
+        if("出勤".equals(status)) {
+            //  出勤時間をDBに追加
+            String sql = "insert into work (login_id,date,start_work) values (" + login_id + " ,'" + formatNowDate2 + "','" + formatNowDate + "')";
+            jdbcTemplate.update(sql);
+            System.out.println(status);
 
-        //  出勤時間をDBに追加
-        String sql = "insert into work (login_id,date,start_work) values (" + session.getAttribute("login_id") +" ,'" + formatNowDate2 +"','"+ formatNowDate + "')";
-        jdbcTemplate.update(sql);
-        return "place";
+        }else if("退勤".equals(status)){
+            String sql2 = "select end_work from work where login_id = '"+login_id+"'  and date = '"+formatNowDate2+"' " ;
+            List<Map<String, Object>> check = jdbcTemplate.queryForList(sql2);
+            if(check == null){
+                System.out.println("null");
+                String sql = "update work set end_work = '"+formatNowDate+"' where login_id = '"+login_id+"' and date = '"+formatNowDate2+"' ";
+                jdbcTemplate.update(sql);
+            }
+            else {
+                model.addAttribute("error", "失敗しました");
+            }
+            System.out.println(status);
+        }else if("休憩開始".equals(status)) {
+            String sql = "update work set start_break= '"+formatNowDate+"' where login_id = '"+login_id+"' and date = '"+formatNowDate2+"' ";
+            jdbcTemplate.update(sql);
+            System.out.println(status);
+        }else if("休憩終了".equals(status)){
+            String sql = "update work set end_break = '"+formatNowDate+"' where login_id = '"+login_id+"' and date = '"+formatNowDate2+"' ";
+            jdbcTemplate.update(sql);
+            System.out.println(status);
+        }
+        return "work";
     }
 //    @PostMapping("/work")
 //    public String inputScreen_work_end(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -78,8 +101,8 @@ public class workController {
 //        //int login_id = (int) this.session.getAttribute("login_id");
 //
 //        //  退勤時間をDBに追加
-//        String sql2 = "insert into work (login_id,date,end_work) values (" + session.getAttribute("login_id") +" ,'" + formatNowDate2 +"','"+ formatNowDate + "')";
-////        String sql = "update work set end_work = ? WHERE login_id = ?";
+////        String sql2 = "insert into work (login_id,date,end_work) values (" + session.getAttribute("login_id") +" ,'" + formatNowDate2 +"','"+ formatNowDate + "')";
+//        String sql2 = "update work set end_work = ? WHERE login_id = ?";
 //        jdbcTemplate.update(sql2);
 //        return "work";
 //    }
