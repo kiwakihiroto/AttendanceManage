@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+
 .px {
     font-size: 25px
   }
@@ -52,42 +53,46 @@ button.btn {
   border-radius: 0.5rem;
 }
 
-.btn--orange,
-a.btn--orange {
+
+/* 出勤　退勤　休憩　ログイン　黄緑ボタン */
+.btn--green,
+a.btn--green {
   color: #fff;
-  background-color: #eb6100;
+  background-color: #6ac12b;
 }
-.btn--orange:hover,
-a.btn--orange:hover {
+.btn--green:hover,
+a.btn--green:hover {
   color: #fff;
-  background: #f56500;
+  background: #6ac12b;
 }
 
-button.btn--red.btn--cubic,
-a.btn--red.btn--cubic {
-    border-bottom: 5px solid #9f000c;
+button.btn--green.btn--cubic,
+a.btn--green.btn--cubic {
+    border-bottom: 5px solid #42781b;
   }
-  
-  button.btn--red.btn--cubic:hover,
-  a.btn--red.btn--cubic:hover {
+
+  button.btn--green.btn--cubic:hover,
+  a.btn--green.btn--cubic:hover {
     margin-top: 3px;
-    border-bottom: 2px solid #9f000c;
+    border-bottom: 2px solid #42781b;
   }
-  
-  
+
+
   a.btn--radius {
     border-radius: 100vh;
     color: #fff;
-    background: #f56500;
+    background: #6ac12b;
   }
-  
+
   .fa-position-right {
     position: absolute;
     top: calc(50% - .5em);
     right: 1rem;
   }
-  
-  
+
+
+
+
   a.btn-radius-solid {
     border: 1px solid #ccc;
     background: #f1e767;
@@ -97,8 +102,8 @@ a.btn--red.btn--cubic {
     -webkit-box-shadow: inset 1px 1px 1px #fff;
     box-shadow: inset 1px 1px 1px #fff;
   }
-  
-  
+
+
   a.btn-radius-solid:hover {
     background: -webkit-gradient(linear, left bottom, left top, from(#fdfbfb), to(#ebedee));
     background: -webkit-linear-gradient(bottom, #fdfbfb 0%, #ebedee 100%);
@@ -121,8 +126,8 @@ a.btn--red.btn--cubic {
     -webkit-box-shadow: inset 1px 1px 1px #fff;
     box-shadow: inset 1px 1px 1px #fff;
   }
-  
-  
+
+
   button.btn-radius-solid:hover {
     background: -webkit-gradient(linear, left bottom, left top, from(#fdfbfb), to(#ebedee));
     background: -webkit-linear-gradient(bottom, #fdfbfb 0%, #ebedee 100%);
@@ -175,7 +180,7 @@ button.btn {
   border-radius: 0.5rem;
 }
 
-/*　赤色　*/
+/*　赤色　勤怠入力 ボタン*/
 
 a.btn-flat {
   overflow: hidden;
@@ -184,7 +189,7 @@ a.btn-flat {
 
   color: #fff;
   border-radius: 0;
-  background: #000;
+  background: #1a1a1a;
 }
 
 a.btn-flat span {
@@ -213,7 +218,7 @@ a.btn-flat:hover:before {
   transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
 
-/*　オレンジ */
+/*　オレンジ 勤務場所登録　ボタン*/
 
 a.btn-flat1 {
   overflow: hidden;
@@ -222,7 +227,7 @@ a.btn-flat1 {
 
   color: #fff;
   border-radius: 0;
-  background: #000;
+  background: #1a1a1a;
 }
 
 a.btn-flat1 span {
@@ -251,7 +256,7 @@ a.btn-flat1:hover:before {
   transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
 
-/* 黄色　*/
+/* 黄色　連絡先登録　ボタン*/
 
 a.btn-flat2 {
   overflow: hidden;
@@ -260,7 +265,7 @@ a.btn-flat2 {
 
   color: #fff;
   border-radius: 0;
-  background: #000;
+  background: #1a1a1a;
 }
 
 a.btn-flat2 span {
@@ -289,7 +294,7 @@ a.btn-flat2:hover:before {
   transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
 
-/* 緑色　*/
+/* 緑色　勤怠履歴一覧表示　ボタン*/
 
 a.btn-flat3 {
   overflow: hidden;
@@ -298,7 +303,7 @@ a.btn-flat3 {
 
   color: #fff;
   border-radius: 0;
-  background: #000;
+  background: #1a1a1a;
 }
 
 a.btn-flat3 span {
@@ -327,7 +332,7 @@ a.btn-flat3:hover:before {
   transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
 
-/* 青色　*/
+/* 青色　勤怠状況一覧表示　ボタン*/
 a.btn-flat4 {
   overflow: hidden;
 
@@ -335,7 +340,7 @@ a.btn-flat4 {
 
   color: #fff;
   border-radius: 0;
-  background: #000;
+  background: #1a1a1a;
 }
 
 a.btn-flat4 span {
@@ -364,7 +369,7 @@ a.btn-flat4:hover:before {
   transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
 
-/* 紫　*/
+/* 紫　ログアウト　ボタン*/
 a.btn-flat5 {
   overflow: hidden;
 
@@ -372,7 +377,7 @@ a.btn-flat5 {
 
   color: #fff;
   border-radius: 0;
-  background: #000;
+  background: #1a1a1a;
 }
 
 a.btn-flat5 span {
@@ -400,6 +405,12 @@ a.btn-flat5:hover:before {
   -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
   transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
+
+/* 背景 グレー　グラデーション */
+body{
+  background-image: linear-gradient(to left bottom, #ffffff, #cecfd1, #9ea2a3, #727775, #4c4e49);
+}
+
 
 /*勤怠履歴一覧*/
 /*
