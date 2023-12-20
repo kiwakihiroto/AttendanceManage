@@ -1,10 +1,13 @@
 package com.example.AttendanceManage.controller;
 import com.example.AttendanceManage.model.User;
+import com.example.AttendanceManage.model.Work;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,10 +64,10 @@ public class workController {
             System.out.println(status);
 
         }else if("退勤".equals(status)){
-            String sql2 = "select end_work from work where login_id = '"+login_id+"'  and date = '"+formatNowDate2+"' " ;
-            List<Map<String, Object>> check = jdbcTemplate.queryForList(sql2);
-
-            if(check.get(0) == null){
+            String sql2 = "select end_work from work where login_id = '"+login_id+"'  and date = '"+formatNowDate2+"' and end_work is null" ;
+            List<Work> works = jdbcTemplate.query(sql2,new DataClassRowMapper<>(Work.class));
+            System.out.println(works.get(0).getEndWork());
+            if(works.get(0).getEndWork() == null){
                 System.out.println("null");
                 String sql = "update work set end_work = '"+formatNowDate+"' where login_id = '"+login_id+"' and date = '"+formatNowDate2+"' ";
                 jdbcTemplate.update(sql);
@@ -73,6 +76,7 @@ public class workController {
                 model.addAttribute("error", "失敗しました");
             }
             System.out.println(status);
+
         }else if("休憩開始".equals(status)) {
             String sql = "update work set start_break= '"+formatNowDate+"' where login_id = '"+login_id+"' and date = '"+formatNowDate2+"' ";
             jdbcTemplate.update(sql);
