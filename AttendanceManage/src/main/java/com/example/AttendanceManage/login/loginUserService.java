@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class loginUser {
+public class loginUserService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     public List<User> SelectLoginUser(User input_user) {
