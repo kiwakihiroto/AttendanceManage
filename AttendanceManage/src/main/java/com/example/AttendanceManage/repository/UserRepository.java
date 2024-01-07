@@ -17,7 +17,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     //tel,mail,remarksの更新
     @Modifying
     @Query(value = "UPDATE attendances SET tel = :tel,mail = :mail,remarks = :remarks WHERE login_id = :loginId",nativeQuery = true)
-    void updateTellMailRemarksSetAttendance(@Param("tel") String tel,@Param("mail") String mail,@Param("remarks") String remarks,@Param("loginId") Integer loginId);
+    void updateAddressByLoginId(@Param("tel") String tel,@Param("mail") String mail,@Param("remarks") String remarks,@Param("loginId") Integer loginId);
 
 
 

@@ -42,19 +42,20 @@
         </ul>
     </div>
     
-    <div class="center2">
+    <div class="contents">
 
         <br><br><br><br>
 
         <form method="post" th:action="@{/address}">
         <h3>連絡先登録</h3>
+        <p style="color:red" th:text="${errorAddress}"></p>
         <label class="left">電話番号</label>
         <input type="text" name="tell">
     
         <br>
 
         <label class="left">メールアドレス</label>
-        <input type="email" name="email">
+        <input type="text" name="email">
 
         <br>
 
@@ -66,6 +67,17 @@
         <input type="submit" value="登録" class="button">
 
         </form>
+    </div>
+    <br><br>
+    <div>
+        <div th:object="${user}">
+            <dl><dfn>電話番号</dfn></dl>
+            <dd th:text = "*{tel}"></dd>
+            <dl><dfn>メールアドレス</dfn></dl>
+            <dd th:text="*{mail}"></dd>
+            <dl><dfn>備考</dfn></dl>
+            <dd><pre th:text="*{remarks}"></pre></dd>
+        </div>
     </div>
     
 </body>

@@ -38,7 +38,7 @@ public class placeController {
 
 
     @PostMapping("/place")
-    public String placePost(HttpServletRequest request) throws ParseException {
+    public String placePost(Model model,HttpServletRequest request) throws ParseException {
         //現在の日付取得
         Date now = new Date();
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
@@ -59,17 +59,19 @@ public class placeController {
         //tableに現在の日付のデータがない時
         /*
         String sqlSelectWork = "select count(*) from work where login_id = '"+login_id+"' and date = '"+nowDate+"'";
-        int selectNowDateCount = jdbcTemplate.queryForObject(sqlSelectWork,Integer.class);
-        System.out.println(selectNowDateCount);
-        */
+        List<Work> sqlSelectWorkList = jdbcTemplate.query(sqlSelectWork,new DataClassRowMapper<>(Work.class));
 
+        System.out.println(sqlSelectWorkList);
+        */
         int selectNowDateCount = workRepository.countByLoginIdAndDate(login_idInt,nowDate,nowDayAgo);
         System.out.println(selectNowDateCount);
         if(selectNowDateCount == 0){
-            System.out.println("error:placeController|出勤中のデータがtableにありませんでした");
+            System.out.println("error:placeController:|出勤中のデータがtableにありませんでした");
+            model.addAttribute("errorPlace","出勤中のデータありませんでした。");
             return "place";
         }else if (selectNowDateCount > 1){
             System.out.println("error:placeController|出勤中のデータが1つ以上あり処理が実行できません");
+            model.addAttribute("errorPlace","error");
             return "place";
         }else if(selectNowDateCount == 1){
             System.out.println("正常");
@@ -90,7 +92,7 @@ public class placeController {
         String sqlUpdateWork = "update work set work_place_id = "+placeInput+" where login_id = '"+login_id+"' and date = '"+nowDate+"' and end_work is null";
         jdbcTemplate.update(sqlUpdateWork);
          */
-        workRepository.updateSetWorkPlaceId(placeInput,login_idInt,nowDate,nowDayAgo);
+        workRepository.updateWorkPlaceIdByLoginIdAndDateAndEndWorkIsNull(placeInput,login_idInt,nowDate,nowDayAgo);
         System.out.println("勤務場所登録完了");
 
         return "place";
