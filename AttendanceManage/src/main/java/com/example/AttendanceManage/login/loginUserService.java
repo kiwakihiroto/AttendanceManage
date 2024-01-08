@@ -40,4 +40,21 @@ public class loginUserService {
         return array_userinfo;
     }
 
+    //管理者か一般ユーザ化を判定
+    public String getAdmin(String login_id) {
+        String sql = "select admin_id from attendances where login_id = '" + login_id + "'";
+//        System.out.println(jdbcTemplate.queryForList(sql));
+
+        // spl文から値を取得
+        List<Map<String, Object>> admin = jdbcTemplate.queryForList(sql);
+
+        //list[0]の値を取得
+        Map<String, Object> result = admin.get(0);
+
+        //admin_idを指定して値の取得
+        String admin_id = (String) result.get("admin_id");
+
+        return admin_id;
+    }
+
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class loginController {
@@ -67,7 +68,16 @@ public class loginController {
                 return "login";
             }else{
                 System.out.println("ログイン成功");
-                return "work";
+
+                String login_id = (String) this.session.getAttribute("login_id");
+
+                String admin_id = loginUserService.getAdmin(login_id);
+
+                if("2".equals(admin_id)){
+                    return "admin/userManagement";
+                }else {
+                    return "work";
+                }
             }
         }catch(Exception e){
             System.out.println("失敗");
