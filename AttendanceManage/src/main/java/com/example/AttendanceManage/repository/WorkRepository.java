@@ -21,6 +21,6 @@ public interface WorkRepository extends JpaRepository<Work, WorkKey> {
     //work_place_idの更新
     @Modifying
     @Query(value = "update work set work_place_id = :workPlaceId where login_id = :loginId and date IN(:date,:nowDayAgo) and end_work is null",nativeQuery = true)
-    void updateSetWorkPlaceId(@Param("workPlaceId") String workPlaceId,@Param("loginId") Integer loginId,@Param("date") Date date,@Param("nowDayAgo") Date nowDayAgo);
+    void updateWorkPlaceIdByLoginIdAndDateAndEndWorkIsNull(@Param("workPlaceId") String workPlaceId,@Param("loginId") Integer loginId,@Param("date") Date date,@Param("nowDayAgo") Date nowDayAgo);
 
 }

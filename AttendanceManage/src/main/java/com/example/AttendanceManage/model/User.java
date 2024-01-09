@@ -25,6 +25,12 @@ public class User {
     private String department_id;
     private String admin_id;
 
+    public void setAddress(String tel,String mail,String remarks){
+        this.tel = tel;
+        this.mail = mail;
+        this.remarks = remarks;
+    }
+
     public static User mapToUser(Map<String, Object> row) {
         //Mapをそれぞれの型に変換
         User resultUserInfo = new User();
