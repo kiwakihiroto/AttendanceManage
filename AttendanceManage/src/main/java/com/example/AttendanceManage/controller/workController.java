@@ -63,11 +63,10 @@ public class workController {
 
         if ("出勤".equals(status)) {
             //  出勤時間をDBに追加
-            //String sql = "insert into work (login_id,date,start_work,work_condition_id) values (" + login_id + " ,'" + formatNowDate2 + "','" + formatNowDate + "',1)";
+            String sql = "insert into work (login_id,date,start_work,work_condition_id) values (" + login_id + " ,'" + formatNowDate2 + "','" + formatNowDate + "',1)";
             String sql2 = "select work_condition_id from work where login_id = '" + login_id + "'  and date = '" + formatNowDate2 + "' ";
             List<Work> works = jdbcTemplate.query(sql2, new DataClassRowMapper<>(Work.class));
-            if (works.get(0).getWorkCondition() == null) {
-                String sql = "insert into work (login_id,date,start_work,work_condition_id) values (" + login_id + " ,'" + formatNowDate2 + "','" + formatNowDate + "',1)";
+            if (works.isEmpty() || works.get(0).getWorkCondition() == null) {
                 jdbcTemplate.update(sql);
                 System.out.println(status);
             }else{
