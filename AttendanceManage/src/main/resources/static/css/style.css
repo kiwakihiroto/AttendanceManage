@@ -3,11 +3,12 @@
 
 .px {
     font-size: 25px
-  }
-  .em {
+}
+.em {
     font-size: 6em
-  }
+}
 
+/* 中央揃え */
 body
 {
     text-align: center;
@@ -441,7 +442,7 @@ th {
   background-color: #f2f2f2;
 }*/
 
-/*中央*/
+/* 中央 勤怠履歴一覧　勤怠状況一覧　表*/
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -471,3 +472,4 @@ th, td {
 th {
   background-color: #f2f2f2;
 }
+
