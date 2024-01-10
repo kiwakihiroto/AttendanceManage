@@ -473,3 +473,14 @@ th {
   background-color: #f2f2f2;
 }
 
+/* ボタン横並び */
+li {
+float:left;
+}
+
+/* ボタン横並び　方法2
+.clearfix:after {
+content: "";
+display: block;
+clear: both;
+} */
