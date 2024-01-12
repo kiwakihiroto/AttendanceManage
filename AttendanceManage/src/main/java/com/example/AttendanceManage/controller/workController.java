@@ -66,7 +66,7 @@ public class workController {
             String sql = "insert into work (login_id,date,start_work,work_condition_id) values (" + login_id + " ,'" + formatNowDate2 + "','" + formatNowDate + "',1)";
             String sql2 = "select work_condition_id from work where login_id = '" + login_id + "'  and date = '" + formatNowDate2 + "' ";
             List<Work> works = jdbcTemplate.query(sql2, new DataClassRowMapper<>(Work.class));
-            if (works.isEmpty() || works.get(0).getWorkCondition() == null) {
+            if (works.isEmpty() || works.get(0).getWorkCondition() == "") {
                 jdbcTemplate.update(sql);
                 System.out.println(status);
             }else{
@@ -79,7 +79,7 @@ public class workController {
             System.out.println(works.get(0).getEndWork());
             if (works.get(0).getEndWork() == null) {
                 System.out.println("null");
-                String sql = "update work set end_work = '" + formatNowDate + "' where login_id = '" + login_id + "' and date = '" + formatNowDate2 + "'  ";
+                String sql = "update work set end_work = '" + formatNowDate + "' where login_id = '" + login_id + "' and date = '" + formatNowDate2 +  "' and work_condition_id   = '" + 4 + "'  ";
                 jdbcTemplate.update(sql);
             } else {
                 model.addAttribute("error", "既に退勤は入力されています");
@@ -92,7 +92,7 @@ public class workController {
             System.out.println(works.get(0).getStartBreak());
             if (works.get(0).getStartBreak() == null) {
                 System.out.println("null");
-                String sql = "update work set start_break = '" + formatNowDate + "' where login_id = '" + login_id + "' and date = '" + formatNowDate2 + "'  ";
+                String sql = "update work set start_break = '" + formatNowDate + "' where login_id = '" + login_id + "' and date = '" + formatNowDate2 + "'  and work_condition_id   = '" + 3 + "' ";
                 jdbcTemplate.update(sql);
             } else {
                 model.addAttribute("error", "既に休憩開始は入力されています");
@@ -105,7 +105,7 @@ public class workController {
             System.out.println(works.get(0).getEndBreak());
             if (works.get(0).getEndBreak() == null) {
                 System.out.println("null");
-                String sql = "update work set end_break = '" + formatNowDate + "' where login_id = '" + login_id + "' and date = '" + formatNowDate2 + "'  ";
+                String sql = "update work set end_break = '" + formatNowDate + "' where login_id = '" + login_id + "' and date = '" + formatNowDate2 + "' and work_condition_id   = '" + 1 + "' ";
                 jdbcTemplate.update(sql);
             } else {
                 model.addAttribute("error", "既に休憩終了は入力されています");
