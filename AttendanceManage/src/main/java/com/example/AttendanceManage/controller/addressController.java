@@ -55,7 +55,7 @@ public class addressController {
             tellFormat = user.getTel();
         }else if(tell.length() == tellLengthNotHyphen) {
             //3個目と8個目の間にハイフンを入れる
-            tellFormat = tellSB.append(user.getTel()).insert(tellHyphen3,"-").insert(tellHyphen8,"-").toString();
+            tellFormat = tellSB.append(tell).insert(3,"-").insert(8,"-").toString();
             System.out.println(tellFormat);
         }else {
             //長さが合わないとき
@@ -105,7 +105,7 @@ public class addressController {
         System.out.println("address登録完了");
 
         //userに変更内容を入れる
-        user.setAddress(tellFormat,mail,remarks);
+        user = userRepository.findByLoginId(loginId);
         //address.htmlに変更後のデータを渡す
         model.addAttribute("user",user);
         return "address";
