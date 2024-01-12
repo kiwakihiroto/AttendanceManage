@@ -42,22 +42,20 @@ public class addressController {
         String remarks = request.getParameter("remarks");
         User user = userRepository.findByLoginId(loginId);
         String tellFormat = "";
+        StringBuilder tellSB = new StringBuilder();
+        int tellLengthNotHyphen = 11;
+        int tellHyphen3 = 3;
+        int tellHyphen8 = 8;
+        int remarkLimit = 128;
+
 
         //tell
         if(Objects.equals(tell, "")) {
             //何も入力がない場合元のデータを入れる
             tellFormat = user.getTel();
-        }else if(tell.length() == 11) {
-            //間にハイフンを入れる
-            for (int i = 0; i<=10;) {
-                if(i == 0) {
-                    tellFormat = String.format("%s%s%s",tell.charAt(i),tell.charAt(i+1),tell.charAt(i+2));
-                    i += 3;
-                }else {
-                    tellFormat = String.format("%s-%s%s%s%s",tellFormat,tell.charAt(i), tell.charAt(i + 1), tell.charAt(i + 2), tell.charAt(i + 3));
-                    i += 4;
-                }
-            }
+        }else if(tell.length() == tellLengthNotHyphen) {
+            //3個目と8個目の間にハイフンを入れる
+            tellFormat = tellSB.append(user.getTel()).insert(tellHyphen3,"-").insert(tellHyphen8,"-").toString();
             System.out.println(tellFormat);
         }else {
             //長さが合わないとき
@@ -89,7 +87,7 @@ public class addressController {
         if (Objects.equals(remarks,"")) {
             //未入力の場合元のデータを入れる
             remarks = user.getRemarks();
-        }else if(remarks.length() >= 128){
+        }else if(remarks.length() >= remarkLimit){
             //128文字以上の場合
             System.out.println("error:address:remarks|入力が長すぎます");
             model.addAttribute("user",user);
