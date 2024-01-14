@@ -41,9 +41,15 @@
         <div class="center2">
 
             <br><br><br><br>
+            <h2 th:text = "'こんにちは、' + ${userName} + 'さん！'"></h2>
 
-            <h2>こんにちは、ななしさん。</h2>
-            <h2>状態：未出勤<br></h2>
+            <div th:switch="${availability}">
+                <h2 th:case="'1'" th:text="状態：出勤中"></h2>
+                <h2 th:case="'2'" th:text="状態：未出勤"></h2>
+                <h2 th:case="'3'" th:text="状態：休憩中"></h2>
+                <h2 th:case="'4'" th:text="状態：退勤済み"></h2>
+                <h2 th:case="*" th:text="状態：未出勤"></h2>
+            </div>
 
             <!--現在日時の表示　78行目まで-->
             <h2><span id="view_clock"></span></h2>
@@ -70,8 +76,6 @@
                     return s;
                 }
             </script>
-
-            <div id="DateTimeDisp"></div>
 
             <form th:action="@{/work}" method="post">
                 <p th:if="${error}" style="color:red" th:text="${error}"></p>

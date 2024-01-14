@@ -37,13 +37,39 @@ public class workController {
 
     @RequestMapping("")
     public String index() {
-        System.out.println("aaa");
         return "work";
     }
 
     @GetMapping("/work")
     public String work(Model model) {
-        //System.out.println(this.session.getAttribute("login_id"));
+        //sessionをString型に
+        String login_id = (String) this.session.getAttribute("login_id");
+        //名前の取得
+        String getUserNameSql = "select user_name from attendances where login_id = '" + login_id +"'";
+        // spl文から値を取得
+        List<Map<String, Object>> name = jdbcTemplate.queryForList(getUserNameSql);
+        //list[0]の値を取得
+        Map<String, Object> getUserName = name.get(0);
+        //user_nameを指定して値の取得
+        String userName = (String) getUserName.get("user_name");
+        model.addAttribute("userName", userName);
+
+        //日付取得
+        Date nowDate = new Date();
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd");
+        String formatNowDate2 = sdf2.format(nowDate);
+
+        //出勤状態の取得
+        String getWorkConditonSql = "select work_condition_id from work where login_id = '" + login_id + "' and date = '" + formatNowDate2 + "'";
+        List<Map<String, Object>> workCondition = jdbcTemplate.queryForList(getWorkConditonSql);
+        if (workCondition.isEmpty()){
+            model.addAttribute("availability", "none");
+        }else{
+            Map<String, Object> getWorConditon = workCondition.get(0);
+            String workConditionId = (String) getWorConditon.get("work_condition_id");
+            model.addAttribute("availability", workConditionId);
+        }
+
         return "work";
     }
 
@@ -53,13 +79,23 @@ public class workController {
         Date nowDate = new Date();
         SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm:ss");
         String formatNowDate = sdf1.format(nowDate);
-        System.out.println(formatNowDate);
+
         //日付取得
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd");
         String formatNowDate2 = sdf2.format(nowDate);
-        System.out.println(formatNowDate);
+
         //sessionをString型に
         String login_id = (String) this.session.getAttribute("login_id");
+
+        //名前の取得
+        String getUserNameSql = "select user_name from attendances where login_id = '" + login_id +"'";
+        // spl文から値を取得
+        List<Map<String, Object>> name = jdbcTemplate.queryForList(getUserNameSql);
+        //list[0]の値を取得
+        Map<String, Object> getUserName = name.get(0);
+        //user_nameを指定して値の取得
+        String userName = (String) getUserName.get("user_name");
+        model.addAttribute("userName", userName);
 
         if ("出勤".equals(status)) {
             //  出勤時間をDBに追加
@@ -68,18 +104,16 @@ public class workController {
             List<Work> works = jdbcTemplate.query(sql2, new DataClassRowMapper<>(Work.class));
             if (works.isEmpty() || works.get(0).getWorkCondition() == "") {
                 jdbcTemplate.update(sql);
-                System.out.println(status);
             }else{
                 model.addAttribute("error", "既に出勤は入力されています");
             }
+            System.out.println(status);
 
         } else if ("退勤".equals(status)) {
             String sql2 = "select end_work from work where login_id = '" + login_id + "'  and date = '" + formatNowDate2 + "' ";
             List<Work> works = jdbcTemplate.query(sql2, new DataClassRowMapper<>(Work.class));
-            System.out.println(works.get(0).getEndWork());
             if (works.get(0).getEndWork() == null) {
-                System.out.println("null");
-                String sql = "update work set end_work = '" + formatNowDate + "' where login_id = '" + login_id + "' and date = '" + formatNowDate2 +  "' and work_condition_id   = '" + 4 + "'  ";
+                String sql = "update work set end_work = '" + formatNowDate + "', work_condition_id = '4' where login_id = '" + login_id + "' and date = '" + formatNowDate2 + "'";
                 jdbcTemplate.update(sql);
             } else {
                 model.addAttribute("error", "既に退勤は入力されています");
@@ -89,10 +123,8 @@ public class workController {
         } else if ("休憩開始".equals(status)) {
             String sql2 = "select start_break from work where login_id = '" + login_id + "'  and date = '" + formatNowDate2 + "' ";
             List<Work> works = jdbcTemplate.query(sql2, new DataClassRowMapper<>(Work.class));
-            System.out.println(works.get(0).getStartBreak());
             if (works.get(0).getStartBreak() == null) {
-                System.out.println("null");
-                String sql = "update work set start_break = '" + formatNowDate + "' where login_id = '" + login_id + "' and date = '" + formatNowDate2 + "'  and work_condition_id   = '" + 3 + "' ";
+                String sql = "update work set start_break = '" + formatNowDate + "', work_condition_id = '3' where login_id = '" + login_id + "' and date = '" + formatNowDate2 + "'";
                 jdbcTemplate.update(sql);
             } else {
                 model.addAttribute("error", "既に休憩開始は入力されています");
@@ -102,16 +134,26 @@ public class workController {
         } else if ("休憩終了".equals(status)) {
             String sql2 = "select end_break from work where login_id = '" + login_id + "'  and date = '" + formatNowDate2 + "' ";
             List<Work> works = jdbcTemplate.query(sql2, new DataClassRowMapper<>(Work.class));
-            System.out.println(works.get(0).getEndBreak());
             if (works.get(0).getEndBreak() == null) {
-                System.out.println("null");
-                String sql = "update work set end_break = '" + formatNowDate + "' where login_id = '" + login_id + "' and date = '" + formatNowDate2 + "' and work_condition_id   = '" + 1 + "' ";
+                String sql = "update work set end_break = '" + formatNowDate + "', work_condition_id = '1' where login_id = '" + login_id + "' and date = '" + formatNowDate2 + "'";
                 jdbcTemplate.update(sql);
             } else {
                 model.addAttribute("error", "既に休憩終了は入力されています");
-                System.out.println(status);
             }
+            System.out.println(status);
         }
+
+        //出勤状態の取得
+        String getWorkConditonSql = "select work_condition_id from work where login_id = '" + login_id + "' and date = '" + formatNowDate2 + "'";
+        List<Map<String, Object>> workCondition = jdbcTemplate.queryForList(getWorkConditonSql);
+        if (workCondition.isEmpty()){
+            model.addAttribute("availability", "none");
+        }else{
+            Map<String, Object> getWorConditon = workCondition.get(0);
+            String workConditionId = (String) getWorConditon.get("work_condition_id");
+            model.addAttribute("availability", workConditionId);
+        }
+
         return "work";
     }
 }

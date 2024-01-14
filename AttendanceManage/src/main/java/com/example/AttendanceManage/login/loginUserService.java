@@ -30,8 +30,6 @@ public class loginUserService {
                 array_userinfo.add(resultUserInfo);
             }
 
-            System.out.println(array_userinfo);
-
         }catch (Exception e){
             System.out.println("sql実行失敗: " + e.getMessage());
             e.printStackTrace();
@@ -43,7 +41,6 @@ public class loginUserService {
     //管理者か一般ユーザ化を判定
     public String getAdmin(String login_id) {
         String sql = "select admin_id from attendances where login_id = '" + login_id + "'";
-//        System.out.println(jdbcTemplate.queryForList(sql));
 
         // spl文から値を取得
         List<Map<String, Object>> admin = jdbcTemplate.queryForList(sql);

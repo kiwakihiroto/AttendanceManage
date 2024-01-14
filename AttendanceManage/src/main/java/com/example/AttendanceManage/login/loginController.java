@@ -35,8 +35,6 @@ public class loginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String get(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
-
-//        System.out.println(this.session.getAttribute("login_id"));
         return "login";
     }
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -48,7 +46,6 @@ public class loginController {
 
         // Sessionへの保存
         this.session.setAttribute("login_id", id);
-//        System.out.println(this.session.getAttribute("login_id"));
 
         try{
             //Userクラスのインスタンス
@@ -60,7 +57,6 @@ public class loginController {
 
             //リストに検索結果を格納
             List<User> user_list = loginUserService.SelectLoginUser(input_user);
-//            System.out.println(user_list);
 
             if(user_list == null || user_list.size() != 1){
                 model.addAttribute("error", "ログインに失敗しました。");
@@ -74,9 +70,9 @@ public class loginController {
                 String admin_id = loginUserService.getAdmin(login_id);
 
                 if("2".equals(admin_id)){
-                    return "admin/userManagement";
+                    return "redirect:admin/userManagement";
                 }else {
-                    return "work";
+                    return "redirect:work";
                 }
             }
         }catch(Exception e){
