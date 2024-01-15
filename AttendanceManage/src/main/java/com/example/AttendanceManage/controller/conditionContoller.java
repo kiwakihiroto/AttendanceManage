@@ -1,5 +1,6 @@
 package com.example.AttendanceManage.controller;
 
+import com.example.AttendanceManage.login.loginUserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,6 +18,9 @@ public class conditionContoller {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     private HttpSession session;
+
+    @Autowired
+    private com.example.AttendanceManage.login.loginUserService loginUserService;
     @Autowired
     public conditionContoller(HttpSession session) {
         // フィールドに代入する
@@ -27,6 +31,14 @@ public class conditionContoller {
 
         String login_id = (String) this.session.getAttribute("login_id");
 //        System.out.println(this.session.getAttribute("login_id"));
+
+        //admin取得
+        String admin_id = loginUserService.getAdmin(login_id);
+        boolean isAdmin = false;
+        if("2".equals(admin_id)){
+            isAdmin = true;
+        }
+        model.addAttribute("isAdmin", isAdmin);
 
         //日付取得
         Date nowDate = new Date();

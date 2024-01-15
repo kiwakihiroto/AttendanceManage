@@ -7,7 +7,8 @@
 
     <title>ユーザ編集</title>
 </head>
-<body style="background-color: rgb(225, 225, 225);">
+<body>
+<section>
     <div>
         <ul class="side">
             <li>
@@ -17,16 +18,16 @@
             </li>
             <li>
                 <form method="post" action="">
-                    <a class="btn btn-flat1" a href="/admin/aggregation">勤務時間集計</a>
+                    <a class="btn btn-flat2" a href="/admin/aggregation">勤務時間集計</a>
                 </form>
             </li>
             <li>
                 <form method="post" action="">
-                    <a class="btn btn-flat1" a href="/work">勤怠入力</a>
+                    <a class="btn btn-flat3" a href="/work">勤怠入力</a>
                 </form>
             </li>
             <li>
-                <a class="btn btn-flat5" a th:href="@{/logout}">ログアウト</a>
+                <a class="btn btn-flat4" a th:href="@{/logout}">ログアウト</a>
             </li>
         </ul>
     </div>
@@ -35,7 +36,7 @@
 
         <br><br><br><br>
 
-        <h3>ユーザー編集</h3>
+        <h1>ユーザー編集</h1>
 
         <p th:text="${loginId}"></p>
 
@@ -74,6 +75,6 @@
         <input type="submit" value="削除" class="button">
 
     </div>
-    
+</section>
 </body>
 </html>

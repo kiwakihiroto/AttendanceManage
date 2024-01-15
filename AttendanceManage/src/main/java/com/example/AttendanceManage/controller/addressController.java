@@ -1,5 +1,6 @@
 package com.example.AttendanceManage.controller;
 
+import com.example.AttendanceManage.login.loginUserService;
 import com.example.AttendanceManage.model.User;
 import com.example.AttendanceManage.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +20,9 @@ public class addressController {
     UserRepository userRepository;
 
     HttpSession session;
+
+    @Autowired
+    private com.example.AttendanceManage.login.loginUserService loginUserService;
     @Autowired
     public addressController(HttpSession session){
         this.session = session;
@@ -31,12 +35,29 @@ public class addressController {
         User user = userRepository.findByLoginId(loginId);
         model.addAttribute("user",user);
 
+        //admin取得
+        String admin_id = loginUserService.getAdmin(Integer.toString(loginId));
+        boolean isAdmin = false;
+        if("2".equals(admin_id)){
+            isAdmin = true;
+        }
+        model.addAttribute("isAdmin", isAdmin);
+
         return "address";
     }
 
     @PostMapping("/address")
     public String addressPost(Model model,HttpServletRequest request) {
         int loginId = Integer.parseInt(session.getAttribute("login_id").toString());
+
+        //admin取得
+        String admin_id = loginUserService.getAdmin(Integer.toString(loginId));
+        boolean isAdmin = false;
+        if("2".equals(admin_id)){
+            isAdmin = true;
+        }
+        model.addAttribute("isAdmin", isAdmin);
+
         String tell = request.getParameter("tell");
         String mail = request.getParameter("email");
         String remarks = request.getParameter("remarks");

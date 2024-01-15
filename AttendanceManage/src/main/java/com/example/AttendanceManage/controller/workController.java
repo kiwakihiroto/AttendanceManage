@@ -1,4 +1,5 @@
 package com.example.AttendanceManage.controller;
+import com.example.AttendanceManage.login.loginUserService;
 import com.example.AttendanceManage.model.Work;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import java.util.Map;
 @Controller
 public class workController {
     private HttpSession session;
+    @Autowired
+    private loginUserService loginUserService;
 
     @Autowired
     public workController(HttpSession session) {
@@ -38,6 +41,15 @@ public class workController {
     public String work(Model model) {
         //sessionをString型に
         String login_id = (String) this.session.getAttribute("login_id");
+
+        //admin取得
+        String admin_id = loginUserService.getAdmin(login_id);
+        boolean isAdmin = false;
+        if("2".equals(admin_id)){
+            isAdmin = true;
+        }
+        model.addAttribute("isAdmin", isAdmin);
+
         //名前の取得
         String getUserNameSql = "select user_name from attendances where login_id = '" + login_id +"'";
         // spl文から値を取得
@@ -148,6 +160,13 @@ public class workController {
             model.addAttribute("availability", workConditionId);
         }
 
+        //admin取得
+        String admin_id = loginUserService.getAdmin(login_id);
+        boolean isAdmin = false;
+        if("2".equals(admin_id)){
+            isAdmin = true;
+        }
+        model.addAttribute("isAdmin", isAdmin);
         return "work";
     }
 }

@@ -7,26 +7,28 @@
 
     <title>勤務履歴一覧</title>
 </head>
-<body style="background-color: rgb(225, 225, 225);">
+<body>
+<section>
     <div>
-        <li>
-            <form method="post" action="">
-                <a class="btn btn-flat1" a href="/admin/userManagement">ユーザ管理</a>
-            </form>
-        </li>
-        <li>
-            <form method="post" action="">
-                <a class="btn btn-flat1" a href="/admin/aggregation">勤務時間集計</a>
-            </form>
-        </li>
-        <li>
-            <form method="post" action="">
-                <a class="btn btn-flat1" a href="/work">勤怠入力</a>
-            </form>
-        </li>
-        <li>
-            <a class="btn btn-flat5" a th:href="@{/logout}">ログアウト</a>
-        </li>
+        <ul class="side">
+            <li>
+                <form method="post" action="">
+                    <a class="btn btn-flat1" a href="/admin/userManagement">ユーザ管理</a>
+                </form>
+            </li>
+            <li>
+                <form method="post" action="">
+                    <a class="btn btn-flat2" a href="/admin/aggregation">勤務時間集計</a>
+                </form>
+            </li>
+            <li>
+                <form method="post" action="">
+                    <a class="btn btn-flat3" a href="/work">勤怠入力</a>
+                </form>
+            </li>
+            <li>
+                <a class="btn btn-flat4" a th:href="@{/logout}">ログアウト</a>
+            </li>
         </ul>
     </div>
     
@@ -34,7 +36,7 @@
 
         <br><br><br><br>
 
-        <h3>選択した人の 勤務履歴一覧 2022/10/01 ~ 2022/10/06</h3>
+        <h1>選択した人の 勤務履歴一覧 2022/10/01 ~ 2022/10/06</h1>
 
         <input type="submit" value="先月へ" class="button">
 
@@ -97,6 +99,6 @@
         </table>
 
     </div>
-    
+</section>
 </body>
 </html>

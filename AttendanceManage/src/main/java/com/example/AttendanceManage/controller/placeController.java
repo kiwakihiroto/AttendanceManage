@@ -1,5 +1,6 @@
 package com.example.AttendanceManage.controller;
 
+import com.example.AttendanceManage.model.User;
 import com.example.AttendanceManage.model.Work;
 import com.example.AttendanceManage.repository.WorkRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +26,8 @@ public class placeController {
     WorkRepository workRepository;
 
     HttpSession session;
+    @Autowired
+    private com.example.AttendanceManage.login.loginUserService loginUserService;
 
     @Autowired
     public placeController(HttpSession session){
@@ -32,6 +35,14 @@ public class placeController {
     }
     @GetMapping("/place")
     public String placeGet(Model model){
+        int loginId = Integer.parseInt(session.getAttribute("login_id").toString());
+        //admin取得
+        String admin_id = loginUserService.getAdmin(Integer.toString(loginId));
+        boolean isAdmin = false;
+        if("2".equals(admin_id)){
+            isAdmin = true;
+        }
+        model.addAttribute("isAdmin", isAdmin);
 
         return "place";
     }
@@ -53,6 +64,16 @@ public class placeController {
 
         //sessionをStringに
         String login_idString = session.getAttribute("login_id").toString();
+
+        //admin取得
+        String admin_id = loginUserService.getAdmin((login_idString));
+        System.out.println(admin_id);
+        boolean isAdmin = false;
+        if("2".equals(admin_id)){
+            isAdmin = true;
+        }
+        model.addAttribute("isAdmin", isAdmin);
+
         //Stringをintに
         int login_idInt = Integer.parseInt(login_idString);
 

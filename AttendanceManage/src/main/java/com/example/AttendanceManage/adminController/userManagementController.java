@@ -26,6 +26,16 @@ public class userManagementController {
 
         String login_id = (String) this.session.getAttribute("login_id");
 
+        //名前の取得
+        String getUserNameSql = "select user_name from attendances where login_id = '" + login_id +"'";
+        // spl文から値を取得
+        List<Map<String, Object>> name = jdbcTemplate.queryForList(getUserNameSql);
+        //list[0]の値を取得
+        Map<String, Object> getUserName = name.get(0);
+        //user_nameを指定して値の取得
+        String userName = (String) getUserName.get("user_name");
+        model.addAttribute("userName", userName);
+
         String getUserSummarySql = "select user_name from attendances";
         List<Map<String, Object>> summaryData = jdbcTemplate.queryForList(getUserSummarySql);
         model.addAttribute("userManagement", summaryData);
@@ -37,6 +47,16 @@ public class userManagementController {
     public String PostUserManagement(Model model){
 
         String login_id = (String) this.session.getAttribute("login_id");
+
+        //名前の取得
+        String getUserNameSql = "select user_name from attendances where login_id = '" + login_id +"'";
+        // spl文から値を取得
+        List<Map<String, Object>> name = jdbcTemplate.queryForList(getUserNameSql);
+        //list[0]の値を取得
+        Map<String, Object> getUserName = name.get(0);
+        //user_nameを指定して値の取得
+        String userName = (String) getUserName.get("user_name");
+        model.addAttribute("userName", userName);
 
         String getUserSummarySql = "select user_name from attendances";
         List<Map<String, Object>> summaryData = jdbcTemplate.queryForList(getUserSummarySql);

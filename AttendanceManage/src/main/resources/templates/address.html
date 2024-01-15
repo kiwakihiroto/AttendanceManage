@@ -13,7 +13,7 @@
         <div>
             <ul class="side">
                 <li>
-                    <form method="post" action="">
+                    <form method="get" action="">
                         <a class="btn btn-flat1" a href="/work">勤怠入力</a>
                     </form>
                 </li>
@@ -27,6 +27,12 @@
                         <a class="btn btn-flat4" a href="/condition">勤怠状況一覧</a>
                     </form>
                 </li>
+                <li th:if="${isAdmin}">
+                    <form method="get" action="">
+                        <a class="btn btn-flat5" a href="/admin/userManagement">ユーザー管理</a>
+                    </form>
+                </li>
+
                 <li>
                     <a class="btn btn-flat5" a th:href="@{/logout}">ログアウト</a>
                 </li>
@@ -38,7 +44,7 @@
             <br><br><br><br>
 
             <form method="post" th:action="@{/address}">
-            <h3>連絡先登録</h3>
+            <h1>連絡先登録</h1>
             <p style="color:red" th:text="${errorAddress}"></p>
             <label class="left">電話番号</label>
             <input type="text" name="tell">

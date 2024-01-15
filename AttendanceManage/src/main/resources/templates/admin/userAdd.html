@@ -8,26 +8,28 @@
 
     <title>ユーザ新規登録</title>
 </head>
-<body style="background-color: rgb(225, 225, 225);">
+<body>
+<section>
     <div>
-        <li>
-            <form method="post" action="">
-                <a class="btn btn-flat1" a href="/admin/userManagement">ユーザ管理</a>
-            </form>
-        </li>
-        <li>
-            <form method="post" action="">
-                <a class="btn btn-flat1" a href="/admin/aggregation">勤務時間集計</a>
-            </form>
-        </li>
-        <li>
-            <form method="post" action="">
-                <a class="btn btn-flat1" a href="/work">勤怠入力</a>
-            </form>
-        </li>
-        <li>
-            <a class="btn btn-flat5" a th:href="@{/logout}">ログアウト</a>
-        </li>
+        <ul class="side">
+            <li>
+                <form method="post" action="">
+                    <a class="btn btn-flat1" a href="/admin/userManagement">ユーザ管理</a>
+                </form>
+            </li>
+            <li>
+                <form method="post" action="">
+                    <a class="btn btn-flat2" a href="/admin/aggregation">勤務時間集計</a>
+                </form>
+            </li>
+            <li>
+                <form method="post" action="">
+                    <a class="btn btn-flat3" a href="/work">勤怠入力</a>
+                </form>
+            </li>
+            <li>
+                <a class="btn btn-flat4" a th:href="@{/logout}">ログアウト</a>
+            </li>
         </ul>
     </div>
 
@@ -35,7 +37,7 @@
 
         <br><br><br><br>
 
-        <h3>ユーザー新規登録</h3>
+        <h1>ユーザー新規登録</h1>
 
         <label class="left">名前</label>
         <input type="text" name="name">
@@ -64,6 +66,6 @@
         <input type="submit" value="新規登録" class="button">
 
     </div>
-    
+</section>
 </body>
 </html>
