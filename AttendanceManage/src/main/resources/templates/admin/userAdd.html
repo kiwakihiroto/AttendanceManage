@@ -1,15 +1,15 @@
 <!DOCTYPE html>
+<html lang="ja">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 
-    <title>ユーザ管理</title>
+    <title>ユーザ新規登録</title>
 </head>
 <body style="background-color: rgb(225, 225, 225);">
-<div>
-    <ul class="side">
+    <div>
         <li>
             <form method="post" action="">
                 <a class="btn btn-flat1" a href="/admin/userManagement">ユーザ管理</a>
@@ -28,28 +28,40 @@
         <li>
             <a class="btn btn-flat5" a th:href="@{/logout}">ログアウト</a>
         </li>
-    </ul>
-</div>
-    
-    <div class="center">
+        </ul>
+    </div>
+
+    <div class="center2">
 
         <br><br><br><br>
 
-        <h3>ユーザー一覧</h3>
+        <h3>ユーザー新規登録</h3>
 
-        <form th:action="@{/admin/userAdd}" method="post">
-            <input class="btn btn--green btn--radius btn--cubic" type="submit" name="status" value="新規登録">
-        </form>
+        <label class="left">名前</label>
+        <input type="text" name="name">
+    
+        <br>
 
-        <table align="center" width="1000" class="color">
-            <tr>
-                <th>名前</th>
-            </tr>
-            <tr th:each="attendance : ${userManagement}">
-                <td th:text="${attendance.user_name}"></td>
-            </tr>
+        <label class="left">ログインID</label>
+        <input type="text" name="loginId">
 
-        </table>
+        <br>
+
+        <label class="left">パスワード</label>
+        <input type="password" name="password">
+        <br>
+
+        <label class="left">所属</label>
+        <select name="department">
+            <option value="none">-</option>
+            <option value="sales">営業</option>
+            <option value="development">開発</option>
+            <option value="officeWork">事務</option>
+        </select>
+
+        <br>
+        
+        <input type="submit" value="新規登録" class="button">
 
     </div>
     
