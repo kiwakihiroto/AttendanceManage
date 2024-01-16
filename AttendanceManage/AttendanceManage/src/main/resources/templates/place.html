@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+
+    <title>勤務場所登録</title>
+</head>
+<body style="background-color: rgb(225, 225, 225);">
+<section>
+    <div>
+        <ul class="side">
+            <li>
+                <form method="get" action="">
+                    <a class="btn btn-flat1" a href="/work"><span>勤怠入力</span></a>
+                </form>
+            </li>
+            <li>
+                <form method="get" action="">
+                    <a class="btn btn-flat3" a href="/address"><span>連絡先登録</span></a>
+                </form>
+            </li>
+            <li>
+                <form method="get" action="">
+                    <a class="btn btn-flat4" a href="/condition"><span>勤怠状況一覧</span></a>
+                </form>
+            </li>
+            <li th:if="${isAdmin}">
+                <form method="get" action="">
+                    <a class="btn btn-flat5" a href="/admin/userManagement"><span>ユーザー管理</span></a>
+                </form>
+            </li>
+
+            <li>
+                <a class="btn btn-flat5" a th:href="@{/logout}"><span>ユーザー管理</span></a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="center2">
+
+        <br><br><br><br>
+
+        <form method="post" th:action="@{/place}">
+            <h1>勤務場所登録</h1>
+
+            <p>本日の勤務場所を登録してください。</p>
+            <p style="color:red" th:text="${errorPlace}"></p>
+            <select name="place">
+                <option value="0">-</option>
+                <option value="1">自宅</option>
+                <option value="2">東京</option>
+                <option value="3">営業所</option>
+            </select><br><br>
+
+            <input class="btn btn--green btn--radius btn--cubic" type="submit" value="登録">
+            <button type="button" class="btn btn-green btn--radius btn--cubic" onclick="window.history.back();">前のページに戻る<i class="fas fa-angle-right fa-position-right"></i></button>
+
+        </form>
+
+    </div>
+</section>
+</body>
+</html>
