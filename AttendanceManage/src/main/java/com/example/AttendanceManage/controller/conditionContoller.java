@@ -1,6 +1,8 @@
 package com.example.AttendanceManage.controller;
 
 import com.example.AttendanceManage.login.loginUserService;
+import com.example.AttendanceManage.repository.AdminRepository;
+import com.example.AttendanceManage.repository.ConditionRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,9 +20,10 @@ public class conditionContoller {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     private HttpSession session;
-
     @Autowired
-    private com.example.AttendanceManage.login.loginUserService loginUserService;
+    private com.example.AttendanceManage.repository.ConditionRepository ConditionRepository;
+    @Autowired
+    private com.example.AttendanceManage.repository.AdminRepository AdminRepository;
     @Autowired
     public conditionContoller(HttpSession session) {
         // フィールドに代入する
@@ -30,37 +33,17 @@ public class conditionContoller {
     public String condition(Model model){
 
         String login_id = (String) this.session.getAttribute("login_id");
-//        System.out.println(this.session.getAttribute("login_id"));
-
         //admin取得
-        String admin_id = loginUserService.getAdmin(login_id);
-        boolean isAdmin = false;
-        if("2".equals(admin_id)){
-            isAdmin = true;
-        }
-        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("isAdmin", AdminRepository.isAdmin(login_id));
 
         //日付取得
         Date nowDate = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         String formatNowDate = sdf.format(nowDate);
-//        System.out.println(formatNowDate);
-
         model.addAttribute("date",formatNowDate);
 
-        // ユーザが所属する部署内の氏名、勤務開始時間、勤務終了時間、ステータス、勤務場所。電話番号、メールの表示。
-        String sql = "select a.user_name, w.start_work, w.end_work, c.work_condition, p.work_place, a.tel, a.mail from work w\n" +
-                "left join condition c on w.work_condition_id = c.work_condition_id\n" +
-                "left join place p on w.work_place_id = p.work_place_id\n" +
-                "join attendances a on w.login_id = a.login_id\n" +
-                "where a.department_id = (select department_id from attendances where login_id = '" + login_id + "')\n" +
-                "and w.date = '" + formatNowDate +"'";
-
-//        System.out.println(jdbcTemplate.queryForList(sql));
-
-        //一覧表示
-        List<Map<String, Object>> attendanceData = jdbcTemplate.queryForList(sql);
-        model.addAttribute("condition", attendanceData);
+        // ユーザが所属する部署内の氏名、勤務開始時間、勤務終了時間、ステータス、勤務場所。電話番号、メールの表示(当日)。
+        model.addAttribute("condition", ConditionRepository.getAttendanceData(login_id, formatNowDate));
         return "condition";
     }
 }

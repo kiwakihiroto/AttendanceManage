@@ -22,7 +22,8 @@ public class addressController {
     HttpSession session;
 
     @Autowired
-    private com.example.AttendanceManage.login.loginUserService loginUserService;
+    private com.example.AttendanceManage.repository.AdminRepository AdminRepository;
+
     @Autowired
     public addressController(HttpSession session){
         this.session = session;
@@ -36,12 +37,7 @@ public class addressController {
         model.addAttribute("user",user);
 
         //admin取得
-        String admin_id = loginUserService.getAdmin(Integer.toString(loginId));
-        boolean isAdmin = false;
-        if("2".equals(admin_id)){
-            isAdmin = true;
-        }
-        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("isAdmin", AdminRepository.isAdmin(Integer.toString(loginId)));
 
         return "address";
     }
@@ -51,12 +47,7 @@ public class addressController {
         int loginId = Integer.parseInt(session.getAttribute("login_id").toString());
 
         //admin取得
-        String admin_id = loginUserService.getAdmin(Integer.toString(loginId));
-        boolean isAdmin = false;
-        if("2".equals(admin_id)){
-            isAdmin = true;
-        }
-        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("isAdmin", AdminRepository.isAdmin(Integer.toString(loginId)));
 
         String tell = request.getParameter("tell");
         String mail = request.getParameter("email");

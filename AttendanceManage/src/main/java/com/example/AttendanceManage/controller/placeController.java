@@ -27,7 +27,7 @@ public class placeController {
 
     HttpSession session;
     @Autowired
-    private com.example.AttendanceManage.login.loginUserService loginUserService;
+    private com.example.AttendanceManage.repository.AdminRepository AdminRepository;
 
     @Autowired
     public placeController(HttpSession session){
@@ -36,13 +36,8 @@ public class placeController {
     @GetMapping("/place")
     public String placeGet(Model model){
         int loginId = Integer.parseInt(session.getAttribute("login_id").toString());
-        //admin取得
-        String admin_id = loginUserService.getAdmin(Integer.toString(loginId));
-        boolean isAdmin = false;
-        if("2".equals(admin_id)){
-            isAdmin = true;
-        }
-        model.addAttribute("isAdmin", isAdmin);
+        ///admin取得
+        model.addAttribute("isAdmin", AdminRepository.isAdmin(Integer.toString(loginId)));
 
         return "place";
     }
@@ -66,13 +61,7 @@ public class placeController {
         String login_idString = session.getAttribute("login_id").toString();
 
         //admin取得
-        String admin_id = loginUserService.getAdmin((login_idString));
-        System.out.println(admin_id);
-        boolean isAdmin = false;
-        if("2".equals(admin_id)){
-            isAdmin = true;
-        }
-        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("isAdmin", AdminRepository.isAdmin(login_idString));
 
         //Stringをintに
         int login_idInt = Integer.parseInt(login_idString);
