@@ -36,7 +36,7 @@ public class userManagementController {
         String userName = (String) getUserName.get("user_name");
         model.addAttribute("userName", userName);
 
-        String getUserSummarySql = "select user_name from attendances";
+        String getUserSummarySql = "select user_name from attendances order by login_id asc";
         List<Map<String, Object>> summaryData = jdbcTemplate.queryForList(getUserSummarySql);
         model.addAttribute("userManagement", summaryData);
 
@@ -58,7 +58,7 @@ public class userManagementController {
         String userName = (String) getUserName.get("user_name");
         model.addAttribute("userName", userName);
 
-        String getUserSummarySql = "select user_name from attendances";
+        String getUserSummarySql = "select user_name from attendances order by login_id asc";
         List<Map<String, Object>> summaryData = jdbcTemplate.queryForList(getUserSummarySql);
         model.addAttribute("userManagement", summaryData);
 
