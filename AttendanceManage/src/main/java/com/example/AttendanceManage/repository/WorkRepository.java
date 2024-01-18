@@ -16,8 +16,8 @@ import java.util.List;
 @Repository
 @Transactional
 public interface WorkRepository extends JpaRepository<Work, WorkKey> {
-    @Query(value = "SELECT count(*) FROM work WHERE work.login_id = :loginId AND work.date IN(:date,:nowDayAgo) AND end_work is null",nativeQuery = true)
-    int countByLoginIdAndDate(@Param("loginId") Integer loginId, @Param("date") Date date,@Param("nowDayAgo") Date nowDayAgo);
+    @Query(value = "SELECT date,end_work FROM work WHERE login_id = :loginId AND date IN(:date,:nowDayAgo) ORDER BY date ASC",nativeQuery = true)
+    List<String> findByLoginIdAndDateAndDate(@Param("loginId") Integer loginId,@Param("date") Date date,@Param("nowDayAgo") Date  nowDayAgo);
 
     @Query(value = "SELECT date,start_work,end_work,start_break,end_break from work WHERE login_id = :loginId",nativeQuery = true)
     List<String> findByLoginId(@Param("loginId") Integer integer);

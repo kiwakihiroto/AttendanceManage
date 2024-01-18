@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class placeController {
@@ -57,6 +61,7 @@ public class placeController {
         calendar.add(Calendar.DAY_OF_MONTH,-1);
         Date nowDayAgo = calendar.getTime();
 
+
         //sessionをStringに
         String login_idString = session.getAttribute("login_id").toString();
 
@@ -73,20 +78,13 @@ public class placeController {
 
         System.out.println(sqlSelectWorkList);
         */
-        int selectNowDateCount = workRepository.countByLoginIdAndDate(login_idInt,nowDate,nowDayAgo);
-        System.out.println(selectNowDateCount);
-        if(selectNowDateCount == 0){
-            System.out.println("error:placeController:|出勤中のデータがtableにありませんでした");
-            model.addAttribute("errorPlace","出勤中のデータありませんでした。");
-            return "place";
-        }else if (selectNowDateCount > 1){
-            System.out.println("error:placeController|出勤中のデータが1つ以上あり処理が実行できません");
-            model.addAttribute("errorPlace","error");
-            return "place";
-        }else if(selectNowDateCount == 1){
+        List<String> dateList = workRepository.findByLoginIdAndDateAndDate(login_idInt,nowDate,nowDayAgo);
+        if(dateList.get(dateList.size()-1).matches(".*null")){
             System.out.println("正常");
+        }else {
+            System.out.println("出勤中のデータがありません");
+            return "place";
         }
-
 
         //勤務場所を取得
         String placeInput = request.getParameter("place");

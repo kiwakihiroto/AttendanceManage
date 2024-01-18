@@ -93,7 +93,7 @@ public class aggregationController {
                             timeListList[end_work] = timeListList[start_work];
                         }
                     }
-                    //夜勤
+                    //通常か夜勤か
                     System.out.println(LocalDateTime.parse(timeListList[date]+" "+timeListList[start_work],dtf)+" "+LocalDateTime.parse(timeListList[date]+" "+timeListList[end_work],dtf));
                     if(!LocalDateTime.parse(timeListList[date]+" "+timeListList[start_work],dtf).isAfter(LocalDateTime.parse(timeListList[date]+" "+timeListList[end_work],dtf))){
                         System.out.println(true);
