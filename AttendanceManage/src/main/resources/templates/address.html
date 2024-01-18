@@ -69,12 +69,20 @@
         <br><br>
         <div>
             <div th:object="${user}">
-                <dl><dfn>電話番号</dfn></dl>
-                <dd th:text = "*{tel}"></dd>
-                <dl><dfn>メールアドレス</dfn></dl>
-                <dd th:text="*{mail}"></dd>
-                <dl><dfn>備考</dfn></dl>
-                <dd><pre th:text="*{remarks}"></pre></dd>
+                <table>
+                    <tr>
+                        <th>電話番号</th>
+                        <td th:text="*{tel}"></td>
+                    </tr>
+                    <tr>
+                        <th>メールアドレス</th>
+                        <td th:text="*{mail}"></td>
+                    </tr>
+                    <tr>
+                        <th>備考</th>
+                        <td><pre th:text="*{remarks}"></pre></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </section>

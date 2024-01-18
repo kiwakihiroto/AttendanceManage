@@ -1,6 +1,8 @@
 package com.example.AttendanceManage.repository;
 
+import com.example.AttendanceManage.model.Work;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -24,23 +26,23 @@ public class WorkStatusRepository {
         return userName;
     }
 
-    public String getCondition(String loginId, String date){
+    public List<Map<String, Object>> getCondition(String loginId, String date){
         String sql = "select work_condition_id from work where login_id = '" + loginId + "' and date = '" + date + "'";
-        return sql;
+        return jdbcTemplate.queryForList(sql);
     }
     public String insretWorkData(String loginId,String date,String time){
         String sql = "insert into work (login_id,date,start_work,work_condition_id) values (" + loginId + " ,'" + date + "','" + time + "',1)";
         return sql;
     }
 
-    public String getWorkConditionId(String loginId, String date){
+    public List<Work> getWorkConditionId(String loginId, String date){
         String sql = "select work_condition_id from work where login_id = '" + loginId + "'  and date = '" + date + "' ";
-        return sql;
+        return jdbcTemplate.query(sql, new DataClassRowMapper<>(Work.class));
     }
 
-    public String getEndWork(String loginId,String date){
+    public List<Work> getEndWork(String loginId,String date){
         String sql = "select end_work from work where login_id = '" + loginId + "'  and date = '" + date + "' ";
-        return sql;
+        return jdbcTemplate.query(sql, new DataClassRowMapper<>(Work.class));
     }
 
     public String updateEndWork(String loginId,String date, String time){
@@ -48,9 +50,9 @@ public class WorkStatusRepository {
         return sql;
     }
 
-    public String getStartBreak(String loginId, String date){
+    public List<Work> getStartBreak(String loginId, String date){
         String sql = "select start_break from work where login_id = '" + loginId + "'  and date = '" + date + "' ";
-        return  sql;
+        return  jdbcTemplate.query(sql, new DataClassRowMapper<>(Work.class));
     }
 
     public String updateStartBreak(String loginId, String date,String time){
@@ -58,9 +60,9 @@ public class WorkStatusRepository {
         return sql;
     }
 
-    public String getEndBreak(String loginId, String date){
+    public List<Work> getEndBreak(String loginId, String date){
         String sql = "select  from work where login_id = '" + loginId + "'  and date = '" + date + "' ";
-        return  sql;
+        return  jdbcTemplate.query(sql, new DataClassRowMapper<>(Work.class));
     }
 
     public String updateEndBreak(String loginId, String date,String time){

@@ -58,7 +58,7 @@ public class workController {
         String formatnowDate = sdf2.format(nowDate);
 
         //出勤状態の取得
-        List<Map<String, Object>> workCondition = jdbcTemplate.queryForList(WorkStatusRepository.getCondition(login_id, formatnowDate));
+        List<Map<String, Object>> workCondition = WorkStatusRepository.getCondition(login_id, formatnowDate);
         if (workCondition.isEmpty()){
             model.addAttribute("availability", "none");
         }else{
@@ -90,7 +90,7 @@ public class workController {
 
         if ("出勤".equals(status)) {
             //  出勤時間をDBに追加
-            List<Work> works = jdbcTemplate.query(WorkStatusRepository.getWorkConditionId(login_id,formatnowDate), new DataClassRowMapper<>(Work.class));
+            List<Work> works = WorkStatusRepository.getWorkConditionId(login_id,formatnowDate);
             if (works.isEmpty() || works.get(0).getWorkCondition() == "") {
                 jdbcTemplate.update(WorkStatusRepository.insretWorkData(login_id,formatnowDate,formatNowTime));
             }else{
@@ -99,7 +99,7 @@ public class workController {
             System.out.println(status);
 
         } else if ("退勤".equals(status)) {
-            List<Work> works = jdbcTemplate.query(WorkStatusRepository.getEndWork(login_id,formatnowDate), new DataClassRowMapper<>(Work.class));
+            List<Work> works = WorkStatusRepository.getEndWork(login_id,formatnowDate);
             if (works.get(0).getEndWork() == null) {
                 jdbcTemplate.update(WorkStatusRepository.updateEndWork(login_id,formatnowDate,formatNowTime));
             } else {
@@ -108,7 +108,7 @@ public class workController {
             System.out.println(status);
 
         } else if ("休憩開始".equals(status)) {
-            List<Work> works = jdbcTemplate.query(WorkStatusRepository.getStartBreak(login_id,formatnowDate), new DataClassRowMapper<>(Work.class));
+            List<Work> works = WorkStatusRepository.getStartBreak(login_id,formatnowDate);
             if (works.get(0).getStartBreak() == null) {
                 jdbcTemplate.update(WorkStatusRepository.updateStartBreak(login_id,formatnowDate,formatNowTime));
             } else {
@@ -117,7 +117,7 @@ public class workController {
             System.out.println(status);
 
         } else if ("休憩終了".equals(status)) {
-            List<Work> works = jdbcTemplate.query(WorkStatusRepository.getEndBreak(login_id,formatnowDate), new DataClassRowMapper<>(Work.class));
+            List<Work> works = WorkStatusRepository.getEndBreak(login_id,formatnowDate);
             if (works.get(0).getEndBreak() == null) {
                 jdbcTemplate.update(WorkStatusRepository.updateEndBreak(login_id,formatnowDate,formatNowTime));
             } else {
@@ -127,7 +127,7 @@ public class workController {
         }
 
         //出勤状態の取得
-        List<Map<String, Object>> workCondition = jdbcTemplate.queryForList(WorkStatusRepository.getCondition(login_id, formatnowDate));
+        List<Map<String, Object>> workCondition = WorkStatusRepository.getCondition(login_id, formatnowDate);
         if (workCondition.isEmpty()){
             model.addAttribute("availability", "none");
         }else{
